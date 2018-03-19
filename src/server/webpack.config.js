@@ -1,5 +1,8 @@
 const path = require('path');
 const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+const root = path.resolve(__dirname, '../../');
 
 module.exports = {
   entry: [
@@ -15,8 +18,8 @@ module.exports = {
 
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, '../../dist'),
-    publicPath: '/static/'
+    path: path.resolve(root, './dist'),
+    publicPath: '/'
   },
 
   devtool: 'inline-source-map',
@@ -38,6 +41,12 @@ module.exports = {
   },
 
   plugins: [
+    new HtmlWebpackPlugin({
+      title: 'React Redux Hot Boilerplate',
+      filename: 'index.html',
+      template: path.resolve(root, './src/client/public/index.html'),
+      favicon: path.resolve(root, './src/client/public/favicon.ico')
+    }),
     // enable HMR.
     new webpack.HotModuleReplacementPlugin(),
     // print module name logs.
