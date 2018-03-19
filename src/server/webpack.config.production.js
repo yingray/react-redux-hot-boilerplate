@@ -39,9 +39,8 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       title: 'React Redux Hot Boilerplate',
-      filename: 'index.html',
-      template: path.resolve(root, './src/client/public/index.html'),
-      favicon: path.resolve(root, './src/client/public/favicon.ico'),
+      template: path.resolve(root, './src/server/index.html'),
+      favicon: path.resolve(root, './src/server/favicon.ico'),
       minify: {
         removeAttributeQuotes: true,
         collapseWhitespace: true,
