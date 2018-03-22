@@ -2,22 +2,37 @@ const path = require('path');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-require('babel-polyfill');
 
 const root = path.resolve(__dirname, '../../');
 
 module.exports = {
   mode: 'production',
 
-  entry: ['babel-polyfill', './src/client/index.js'],
+  entry: {
+    app: './src/client/index.js'
+  },
 
   output: {
-    filename: 'static/bundle.js',
+    filename: 'static/[name].js',
     path: path.resolve(root, './dist/client'),
     publicPath: '/'
   },
 
   devtool: 'source-map',
+
+  // code splitting for vendor libs
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          test: /node_modules/,
+          chunks: 'initial',
+          name: 'vendor',
+          enforce: true
+        }
+      }
+    }
+  },
 
   module: {
     rules: [
@@ -65,7 +80,7 @@ module.exports = {
       filename: 'static/styles.css'
     }),
 
-    // tell the client app developement mode.
+    // tell the client app development mode.
     new webpack.DefinePlugin({
       __DEVELOPMENT__: false
     })
