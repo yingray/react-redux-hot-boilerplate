@@ -20,7 +20,8 @@
     "no-console": 0,
     "no-alert": 0,
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-    "jsx-a11y/anchor-is-valid": 0
+    "jsx-a11y/anchor-is-valid": 0,
+    "global-require": 0
   },
   "plugins": ["react", "import"],
   "parser": "babel-eslint",

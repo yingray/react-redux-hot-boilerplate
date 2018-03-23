@@ -1,5 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
+import { hot } from 'react-hot-loader';
 
 const Profile = () => (
   <div>
@@ -19,4 +20,4 @@ const Profile = () => (
   </div>
 );
 
-export default Profile;
+export default (module.hot ? hot(module)(Profile) : Profile);
