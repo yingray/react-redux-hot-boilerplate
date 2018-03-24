@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const workboxPlugin = require('workbox-webpack-plugin');
 
 const root = path.resolve(__dirname, '../../');
 
@@ -71,13 +72,19 @@ module.exports = {
         minifyCSS: true,
         removeComments: true,
         removeEmptyAttributes: true
-      },
-      hash: true
+      }
     }),
 
     // move the styles to an individual css file for parallelly downloading.
     new MiniCssExtractPlugin({
       filename: 'static/styles.css'
+    }),
+
+    // generate service-worker.js by workbox.
+    new workboxPlugin.GenerateSW({
+      swDest: 'sw.js',
+      clientsClaim: true,
+      skipWaiting: true,
     }),
 
     // tell the client app development mode.

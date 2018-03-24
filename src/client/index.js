@@ -5,6 +5,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import combineReducers from './reducers/index';
 import App from './App';
+import registerServiceWorker from './registerServiceWorker';
 
 // create redux store with reducers.
 const store = createStore(combineReducers);
@@ -22,5 +23,6 @@ const render = (Component) => {
 };
 
 render(App);
+registerServiceWorker();
 
 if (module.hot) module.hot.accept('./App', () => render(require('./App').default));
