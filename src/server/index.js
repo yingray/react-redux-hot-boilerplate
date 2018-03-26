@@ -8,31 +8,42 @@ import config from './webpack.config';
 
 const app = express();
 const development = process.env.NODE_ENV !== 'production';
-const port = process.env.PORT || development ? 3000 : 8080;
+const port = process.env.PORT || 5000;
 const rootPath = path.resolve(__dirname, '../../');
 
 if (development) {
   // for dev server.
   const compiler = webpack(config);
-  app.use(
-    webpackDevMiddleware(compiler, {
-      publicPath: config.output.publicPath
-    })
-  );
+  app.use(webpackDevMiddleware(compiler, {
+    publicPath: config.output.publicPath
+  }));
   app.use(webpackHotMiddleware(compiler));
+  // serve index.html for undefined route.
+  app.use('*', (req, res, next) => {
+    const filename = path.join(compiler.outputPath, 'index.html');
+    compiler.outputFileSystem.readFile(filename, (err, result) => {
+      if (err) {
+        return next(err);
+      }
+      res.set('content-type', 'text/html');
+      res.send(result);
+      return res.end();
+    });
+  });
 } else {
   // for production server.
-  const dist = path.join(rootPath, './dist');
+  const client = path.join(rootPath, './dist/client');
   // serve favicon request in memory.
-  app.use(favicon(path.join(dist, './favicon.ico')));
-  app.use(express.static(dist));
+  app.use(favicon(path.join(client, './favicon.ico')));
+  app.use(express.static(client));
+  // serve index.html for undefined route.
+  app.use('*', express.static(path.join(client, './index.html')));
 }
 
 // start the http server.
 app.listen(port, (err) => {
   if (err) {
-    console.error(err);
-    return;
+    return console.error(err);
   }
-  console.log(`Listening at http://localhost:${port}`);
+  return console.log(`Listening at http://localhost:${port}`);
 });

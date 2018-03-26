@@ -1,10 +1,13 @@
-const path = require('path');
-const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path')
+const webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const workboxPlugin = require('workbox-webpack-plugin');
 
-const root = path.resolve(__dirname, '../../');
+const root = path.resolve(__dirname, '../../')
 
 module.exports = {
+  mode: 'development',
+
   entry: [
     // React HMR.
     'react-hot-loader/patch',
@@ -61,9 +64,16 @@ module.exports = {
     new webpack.NamedModulesPlugin(),
     // not emit errors.
     new webpack.NoEmitOnErrorsPlugin(),
+    // generate service-worker.js by workbox.
+    new workboxPlugin.GenerateSW({
+      swDest: 'sw.js',
+      cacheId: 'react-redux-hot-boilerplate',
+      clientsClaim: true,
+      skipWaiting: true,
+    }),
     // tell the client app development mode.
     new webpack.DefinePlugin({
       __DEVELOPMENT__: true
     })
   ]
-};
+}
