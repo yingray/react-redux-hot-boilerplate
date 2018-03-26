@@ -8,7 +8,7 @@ import config from './webpack.config';
 
 const app = express();
 const development = process.env.NODE_ENV !== 'production';
-const port = process.env.PORT || development ? 3000 : 5000;
+const port = process.env.PORT || 5000;
 const rootPath = path.resolve(__dirname, '../../');
 
 if (development) {
