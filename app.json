@@ -1,0 +1,7 @@
+{
+  "name":"Node.js Sample",
+  "scripts": {
+    "postdeploy": "bin/bootstrap",
+    "pr-predestroy": "bin/teardown"
+  }
+}
