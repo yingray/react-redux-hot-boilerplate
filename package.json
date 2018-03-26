@@ -9,7 +9,8 @@
     "build": "npm run build:client && npm run build:server",
     "build:server": "babel src/server -d dist/server",
     "build:client": "NODE_ENV=production webpack -p --progress --config src/server/webpack.config.production.js",
-    "start": "NODE_ENV=production node dist/server/index.js"
+    "start": "NODE_ENV=production node dist/server/index.js",
+    "postinstall": "npm run build"
   },
   "dependencies": {
     "express": "^4.16.3",
