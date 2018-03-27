@@ -1,5 +1,19 @@
 body {
   margin: 0px;
+  background-color: #eee; 
+}
+
+.c-app {
+  box-sizing: border-box;
+  height: 100vh;
+  max-width: 600px;
+  position: relative;
+  margin: 0 auto;
+  background-color: #fff;
+}
+
+.c-app__content {
+  padding: 20px;
 }
 
 .progress {
@@ -7,4 +21,10 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.c-tab {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }
